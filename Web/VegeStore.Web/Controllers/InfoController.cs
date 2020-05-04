@@ -7,14 +7,14 @@
 
     using Microsoft.AspNetCore.Mvc;
 
-    public class StoreController : Controller
+    public class InfoController : Controller
     {
-        public IActionResult Shop()
+        public IActionResult About()
         {
             return this.View();
         }
 
-        public IActionResult Wishlist()
+        public IActionResult Contact()
         {
             return this.View();
         }
