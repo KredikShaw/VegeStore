@@ -4,9 +4,8 @@ namespace VegeStore.Data.Models
     using System;
     using System.Collections.Generic;
 
-    using VegeStore.Data.Common.Models;
-
     using Microsoft.AspNetCore.Identity;
+    using VegeStore.Data.Common.Models;
 
     public class ApplicationUser : IdentityUser, IAuditInfo, IDeletableEntity
     {
@@ -33,5 +32,9 @@ namespace VegeStore.Data.Models
         public virtual ICollection<IdentityUserClaim<string>> Claims { get; set; }
 
         public virtual ICollection<IdentityUserLogin<string>> Logins { get; set; }
+
+        public string CartId { get; set; }
+
+        public virtual Cart Cart { get; set; }
     }
 }

@@ -6,11 +6,10 @@
     using System.Threading;
     using System.Threading.Tasks;
 
-    using VegeStore.Data.Common.Models;
-    using VegeStore.Data.Models;
-
     using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore;
+    using VegeStore.Data.Common.Models;
+    using VegeStore.Data.Models;
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, string>
     {
@@ -25,6 +24,12 @@
         }
 
         public DbSet<Setting> Settings { get; set; }
+
+        public DbSet<Item> Items { get; set; }
+
+        public DbSet<Cart> Carts { get; set; }
+
+        public DbSet<CartItem> CartItems { get; set; }
 
         public override int SaveChanges() => this.SaveChanges(true);
 
@@ -72,6 +77,16 @@
             {
                 foreignKey.DeleteBehavior = DeleteBehavior.Restrict;
             }
+
+            builder.Entity<CartItem>(entity =>
+            {
+                entity.HasKey(ci => new { ci.CartId, ci.ItemId });
+            });
+
+            builder.Entity<ApplicationUser>(entity =>
+            {
+                entity.HasOne(u => u.Cart).WithOne(c => c.User).HasForeignKey<Cart>(c => c.UserId);
+            });
         }
 
         private static void SetIsDeletedQueryFilter<T>(ModelBuilder builder)
