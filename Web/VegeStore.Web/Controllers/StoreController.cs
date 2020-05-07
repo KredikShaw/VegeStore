@@ -18,5 +18,15 @@
         {
             return this.View();
         }
+
+        public IActionResult Cart()
+        {
+            return this.View();
+        }
+
+        public IActionResult Checkout()
+        {
+            return this.View();
+        }
     }
 }
