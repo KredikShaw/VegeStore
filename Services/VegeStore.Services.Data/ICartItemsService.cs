@@ -5,12 +5,8 @@
     using System.Text;
     using System.Threading.Tasks;
 
-    using VegeStore.Data.Models;
-
-    public interface IItemsService
+    public interface ICartItemsService
     {
-        IEnumerable<T> GetAllItems<T>();
-
-        Item GetItem(int id);
+        Task CreateCartItemAsync(string userId, int itemId);
     }
 }

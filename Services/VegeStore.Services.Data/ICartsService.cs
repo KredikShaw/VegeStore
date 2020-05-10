@@ -7,10 +7,10 @@
 
     using VegeStore.Data.Models;
 
-    public interface IItemsService
+    public interface ICartsService
     {
-        IEnumerable<T> GetAllItems<T>();
+        Cart GetCart(string cartId);
 
-        Item GetItem(int id);
+        Task<string> CreateCart(string userId);
     }
 }
