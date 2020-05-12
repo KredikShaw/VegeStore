@@ -12,5 +12,7 @@
         IEnumerable<T> GetAllItems<T>();
 
         Item GetItem(int id);
+
+        IEnumerable<T> GetAllCartItems<T>(IEnumerable<int> ids);
     }
 }

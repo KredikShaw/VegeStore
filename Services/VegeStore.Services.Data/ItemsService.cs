@@ -18,6 +18,17 @@
             this.itemsRepository = itemsRepository;
         }
 
+        public IEnumerable<T> GetAllCartItems<T>(IEnumerable<int> ids)
+        {
+            var items = this.itemsRepository
+                .All()
+                .Where(i => ids.Contains(i.Id))
+                .To<T>()
+                .ToList();
+
+            return items;
+        }
+
         public IEnumerable<T> GetAllItems<T>()
         {
             var items = this.itemsRepository

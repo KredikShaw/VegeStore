@@ -1,4 +1,5 @@
 ﻿@using VegeStore.Common
+@inject VegeStore.Services.Data.ICartItemsService CartItemsService
 <!DOCTYPE html>
 <html>
 <head>
@@ -76,8 +77,14 @@
                         <li class="nav-item"><a asp-controller="Info" asp-action="About" class="nav-link">About</a></li>
                         <li class="nav-item"><a asp-controller="Info" asp-action="Contact" class="nav-link">Contact</a></li>
                         <partial name="_LoginPartial" />
-                        <li class="nav-item cta cta-colored"><a href="cart.html" class="nav-link"><span class="icon-shopping_cart"></span>[0]</a></li>
-
+                        @if (this.User.Identity.IsAuthenticated)
+                        {
+                            <li class="nav-item cta cta-colored"><a asp-controller="Store" asp-action="Cart" class="nav-link"><span class="icon-shopping_cart"></span>[@CartItemsService.GetItemsCount(this.User)]</a></li>
+                        }
+                        else
+                        {
+                            <li class="nav-item cta cta-colored"><a asp-controller="Store" asp-action="Cart" class="nav-link"><span class="icon-shopping_cart"></span>[0]</a></li>
+                        }
                     </ul>
                 </div>
             </div>
