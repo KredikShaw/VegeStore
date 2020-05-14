@@ -41,18 +41,24 @@
 
                                     <td class="product-name">
                                         <h3>@item.Name</h3>
-                                        <p>@item.Description.Substring(0,75)...</p>
+                                        <p>@item.Description.Substring(0, 75)...</p>
                                     </td>
 
                                     <td class="price">$@item.Price</td>
 
                                     <td class="quantity">
-                                        <div class="input-group mb-3">
-                                            <input type="text" name="quantity" class="quantity form-control input-number" value="1" min="1" max="100">
-                                        </div>
+                                        <form action="ChangeAmount" method="get">
+                                            <div class="input-group mb-3">
+                                                <input type="text" oninput="ShowApply('@item.Name')" name="amount" class="quantity form-control input-number" value="@item.Amount" min="1" max="100">
+                                            </div>
+                                            <div class="form-group">
+                                                <input type="hidden" class="form-control" id="itemId" name="itemId" value="@item.Id">
+                                            </div>
+                                            <input type="hidden" id="applyButton_@item.Name" class="btn btn-black py-3 px-5" value="Apply" />
+                                        </form>
                                     </td>
 
-                                    <td class="total">$@item.Price</td>
+                                    <td class="total">$@(item.Price*item.Amount)</td>
                                 </tr><!-- END TR-->
                             }
                         </tbody>
@@ -100,20 +106,34 @@
                     <h3>Cart Totals</h3>
                     <p class="d-flex">
                         <span>Subtotal</span>
-                        <span>$20.60</span>
+                        <span>$@Model.Items.Sum(x => x.Amount * x.Price)</span>
                     </p>
                     <p class="d-flex">
                         <span>Delivery</span>
-                        <span>$0.00</span>
+                        @if (@Model.Items.Sum(x => x.Amount * x.Price) >= 50)
+                        {
+                            <span>$0.00</span>
+                        }
+                        else
+                        {
+                            <span>$5.00</span>
+                        }
                     </p>
                     <p class="d-flex">
                         <span>Discount</span>
-                        <span>$3.00</span>
+                        <span>$0.00</span>
                     </p>
                     <hr>
                     <p class="d-flex total-price">
                         <span>Total</span>
-                        <span>$17.60</span>
+                        @if (@Model.Items.Sum(x => x.Amount * x.Price) >= 50)
+                        {
+                            <span>$@Model.Items.Sum(x => x.Amount * x.Price)</span>
+                        }
+                        else
+                        {
+                            <span>$@(Model.Items.Sum(x => x.Amount * x.Price)+5)</span>
+                        }
                     </p>
                 </div>
                 <p><a href="checkout.html" class="btn btn-primary py-3 px-4">Proceed to Checkout</a></p>
@@ -140,3 +160,11 @@
         </div>
     </div>
 </section>
+
+<script>
+    function ShowApply(id) {
+        document.getElementById("applyButton_" + id).setAttribute('type', 'submit');
+        $("#applyButton_" + id).show();
+        console.log('displaying applyButton_' + id);
+    }
+</script>

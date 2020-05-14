@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
+
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
@@ -56,6 +57,11 @@
                 Items = this.itemsService.GetAllCartItems<CartItemViewModel>(itemIds),
             };
 
+            foreach (var item in viewModel.Items)
+            {
+                item.Amount = this.cartItemsService.GetAmount(cartId, item.Id);
+            }
+
             return this.View(viewModel);
         }
 
@@ -77,10 +83,11 @@
         }
 
         [Authorize]
-        public async Task<IActionResult> AddToCart(int itemId)
+        [HttpPost]
+        public async Task<IActionResult> AddToCart(int itemId, int amount)
         {
             var userId = this.userManager.GetUserId(this.User);
-            await this.cartItemsService.CreateCartItemAsync(userId, itemId);
+            await this.cartItemsService.CreateCartItemAsync(userId, itemId, amount);
             return this.RedirectToAction("Shop");
         }
 
@@ -89,6 +96,15 @@
         {
             var userId = this.userManager.GetUserId(this.User);
             await this.cartItemsService.RemoveCartItemAsync(userId, itemId);
+            return this.RedirectToAction("Cart");
+        }
+
+        [Authorize]
+        public async Task<IActionResult> ChangeAmount(int amount, int itemId)
+        {
+            var user = await this.userManager.GetUserAsync(this.User);
+            var cartId = user.CartId;
+            await this.cartItemsService.ChangeAmountAsync(cartId, itemId, amount);
             return this.RedirectToAction("Cart");
         }
     }

@@ -27,7 +27,17 @@
             this.userManager = userManager;
         }
 
-        public async Task CreateCartItemAsync(string userId, int itemId)
+        public async Task ChangeAmountAsync(string cartId, int itemId, int amount)
+        {
+            var cartItem = this.cartItemsRepository.All()
+                 .FirstOrDefault(ci => ci.CartId == cartId && ci.ItemId == itemId);
+
+            cartItem.Amount = amount;
+            this.cartItemsRepository.Update(cartItem);
+            await this.cartItemsRepository.SaveChangesAsync();
+        }
+
+        public async Task CreateCartItemAsync(string userId, int itemId, int amount)
         {
             var cartId = this.usersService.GetCartId(userId);
 
@@ -35,10 +45,20 @@
             {
                 CartId = cartId,
                 ItemId = itemId,
+                Amount = amount,
             };
 
             await this.cartItemsRepository.AddAsync(cartItem);
             await this.cartItemsRepository.SaveChangesAsync();
+        }
+
+        public int GetAmount(string cartId, int itemId)
+        {
+            var amount = this.cartItemsRepository.All()
+                .FirstOrDefault(ci => ci.ItemId == itemId && ci.CartId == cartId)
+                .Amount;
+
+            return amount;
         }
 
         public IEnumerable<int> GetItemIds(string cartId)
