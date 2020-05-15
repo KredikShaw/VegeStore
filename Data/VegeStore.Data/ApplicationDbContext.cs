@@ -31,6 +31,12 @@
 
         public DbSet<CartItem> CartItems { get; set; }
 
+        public DbSet<Coupon> Coupons { get; set; }
+
+        public DbSet<Order> Orders { get; set; }
+
+        public DbSet<OrderItem> OrderItems { get; set; }
+
         public override int SaveChanges() => this.SaveChanges(true);
 
         public override int SaveChanges(bool acceptAllChangesOnSuccess)
@@ -81,6 +87,11 @@
             builder.Entity<CartItem>(entity =>
             {
                 entity.HasKey(ci => new { ci.CartId, ci.ItemId });
+            });
+
+            builder.Entity<OrderItem>(entity =>
+            {
+                entity.HasKey(oi => new { oi.OrderId, oi.ItemId });
             });
 
             builder.Entity<ApplicationUser>(entity =>

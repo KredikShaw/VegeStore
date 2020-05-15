@@ -19,5 +19,9 @@
         public virtual ApplicationUser User { get; set; }
 
         public virtual ICollection<CartItem> Items { get; set; }
+
+        public decimal TotalCost { get; set; }
+
+        public bool CouponApplied { get; set; }
     }
 }

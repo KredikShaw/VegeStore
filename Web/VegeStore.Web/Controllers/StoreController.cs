@@ -17,15 +17,18 @@
     {
         private readonly IItemsService itemsService;
         private readonly ICartItemsService cartItemsService;
+        private readonly ICartsService cartsService;
         private readonly UserManager<ApplicationUser> userManager;
 
         public StoreController(
             IItemsService itemsService,
             ICartItemsService cartItemsService,
+            ICartsService cartsService,
             UserManager<ApplicationUser> userManager)
         {
             this.itemsService = itemsService;
             this.cartItemsService = cartItemsService;
+            this.cartsService = cartsService;
             this.userManager = userManager;
         }
 
@@ -55,6 +58,7 @@
             var viewModel = new CartItemsViewModel
             {
                 Items = this.itemsService.GetAllCartItems<CartItemViewModel>(itemIds),
+                TotalCost = await this.cartsService.CalculateTotalCostAsync(cartId),
             };
 
             foreach (var item in viewModel.Items)

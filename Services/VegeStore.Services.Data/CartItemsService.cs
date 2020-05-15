@@ -52,6 +52,16 @@
             await this.cartItemsRepository.SaveChangesAsync();
         }
 
+        public IEnumerable<CartItem> GetAllCartItems(string cartId)
+        {
+            var cartItems = this.cartItemsRepository
+                .All()
+                .Where(ci => ci.CartId == cartId)
+                .ToList();
+
+            return cartItems;
+        }
+
         public int GetAmount(string cartId, int itemId)
         {
             var amount = this.cartItemsRepository.All()

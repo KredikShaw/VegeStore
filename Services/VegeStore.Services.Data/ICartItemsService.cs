@@ -6,6 +6,8 @@
     using System.Text;
     using System.Threading.Tasks;
 
+    using VegeStore.Data.Models;
+
     public interface ICartItemsService
     {
         Task CreateCartItemAsync(string userId, int itemId, int amount);
@@ -19,5 +21,7 @@
         int GetAmount(string cartId, int itemId);
 
         Task ChangeAmountAsync(string cartId, int itemId, int amount);
+
+        IEnumerable<CartItem> GetAllCartItems(string cartId);
     }
 }

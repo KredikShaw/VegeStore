@@ -7,5 +7,7 @@
     public class CartItemsViewModel
     {
         public IEnumerable<CartItemViewModel> Items { get; set; }
+
+        public decimal TotalCost { get; set; }
     }
 }

@@ -106,11 +106,19 @@
                     <h3>Cart Totals</h3>
                     <p class="d-flex">
                         <span>Subtotal</span>
-                        <span>$@Model.Items.Sum(x => x.Amount * x.Price)</span>
+
+                        @if (@Model.TotalCost - 5 >= 50)
+                        {
+                            <span>$@(Model.TotalCost)</span>
+                        }
+                        else
+                        {
+                            <span>$@(Model.TotalCost-5)</span>
+                        }
                     </p>
                     <p class="d-flex">
                         <span>Delivery</span>
-                        @if (@Model.Items.Sum(x => x.Amount * x.Price) >= 50)
+                        @if (@Model.TotalCost-5 >= 50)
                         {
                             <span>$0.00</span>
                         }
@@ -126,14 +134,7 @@
                     <hr>
                     <p class="d-flex total-price">
                         <span>Total</span>
-                        @if (@Model.Items.Sum(x => x.Amount * x.Price) >= 50)
-                        {
-                            <span>$@Model.Items.Sum(x => x.Amount * x.Price)</span>
-                        }
-                        else
-                        {
-                            <span>$@(Model.Items.Sum(x => x.Amount * x.Price)+5)</span>
-                        }
+                        <span>$@Model.TotalCost</span>
                     </p>
                 </div>
                 <p><a href="checkout.html" class="btn btn-primary py-3 px-4">Proceed to Checkout</a></p>

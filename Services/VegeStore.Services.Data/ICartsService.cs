@@ -12,5 +12,7 @@
         Cart GetCart(string cartId);
 
         Task<string> CreateCart(string userId);
+
+        Task<decimal> CalculateTotalCostAsync(string cartId);
     }
 }
