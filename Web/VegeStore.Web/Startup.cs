@@ -2,6 +2,15 @@
 {
     using System.Reflection;
 
+    using Microsoft.AspNetCore.Builder;
+    using Microsoft.AspNetCore.Hosting;
+    using Microsoft.AspNetCore.Http;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.EntityFrameworkCore;
+    using Microsoft.Extensions.Configuration;
+    using Microsoft.Extensions.DependencyInjection;
+    using Microsoft.Extensions.Hosting;
+
     using VegeStore.Data;
     using VegeStore.Data.Common;
     using VegeStore.Data.Common.Repositories;
@@ -12,15 +21,6 @@
     using VegeStore.Services.Mapping;
     using VegeStore.Services.Messaging;
     using VegeStore.Web.ViewModels;
-
-    using Microsoft.AspNetCore.Builder;
-    using Microsoft.AspNetCore.Hosting;
-    using Microsoft.AspNetCore.Http;
-    using Microsoft.AspNetCore.Mvc;
-    using Microsoft.EntityFrameworkCore;
-    using Microsoft.Extensions.Configuration;
-    using Microsoft.Extensions.DependencyInjection;
-    using Microsoft.Extensions.Hosting;
 
     public class Startup
     {
@@ -68,6 +68,7 @@
             services.AddTransient<IUsersService, UsersService>();
             services.AddTransient<ICartItemsService, CartItemsService>();
             services.AddTransient<ICartsService, CartsService>();
+            services.AddTransient<ICouponsService, CouponsService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

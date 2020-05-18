@@ -7,6 +7,7 @@
         public Coupon()
         {
             this.Id = Guid.NewGuid().ToString();
+            this.ExpirationDate = DateTime.UtcNow.AddDays(14);
         }
 
         public string Id { get; set; }

@@ -59,6 +59,7 @@
             {
                 Items = this.itemsService.GetAllCartItems<CartItemViewModel>(itemIds),
                 TotalCost = await this.cartsService.CalculateTotalCostAsync(cartId),
+                Discount = this.cartsService.CalculateDiscount(cartId),
             };
 
             foreach (var item in viewModel.Items)
@@ -88,7 +89,7 @@
 
         [Authorize]
         [HttpPost]
-        public async Task<IActionResult> AddToCart(int itemId, int amount)
+        public async Task<IActionResult> AddToCart(int itemId, int amount)//fix adding to cart from shop page
         {
             var userId = this.userManager.GetUserId(this.User);
             await this.cartItemsService.CreateCartItemAsync(userId, itemId, amount);
@@ -109,6 +110,15 @@
             var user = await this.userManager.GetUserAsync(this.User);
             var cartId = user.CartId;
             await this.cartItemsService.ChangeAmountAsync(cartId, itemId, amount);
+            return this.RedirectToAction("Cart");
+        }
+
+        [Authorize]
+        public async Task<IActionResult> ApplyCoupon(string code)
+        {
+            var user = await this.userManager.GetUserAsync(this.User);
+            var cartId = user.CartId;
+            await this.cartsService.ApplyCouponAsync(code, cartId);
             return this.RedirectToAction("Cart");
         }
     }

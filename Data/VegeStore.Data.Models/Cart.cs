@@ -22,6 +22,6 @@
 
         public decimal TotalCost { get; set; }
 
-        public bool CouponApplied { get; set; }
+        public decimal Discount { get; set; }
     }
 }

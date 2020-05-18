@@ -71,14 +71,14 @@
                 <div class="cart-total mb-3">
                     <h3>Coupon Code</h3>
                     <p>Enter your coupon code if you have one</p>
-                    <form action="#" class="info">
+                    <form asp-action="ApplyCoupon" class="info">
                         <div class="form-group">
                             <label for="">Coupon code</label>
-                            <input type="text" class="form-control text-left px-3" placeholder="">
+                            <input name="code" type="text" class="form-control text-left px-3" placeholder="">
                         </div>
+                        <p><input type="submit" class="btn btn-primary py-3 px-4" value="Apply Coupon" /></p>
                     </form>
                 </div>
-                <p><a href="checkout.html" class="btn btn-primary py-3 px-4">Apply Coupon</a></p>
             </div>
             <div class="col-lg-4 mt-5 cart-wrap ftco-animate">
                 <div class="cart-total mb-3">
@@ -118,7 +118,7 @@
                     </p>
                     <p class="d-flex">
                         <span>Delivery</span>
-                        @if (@Model.TotalCost-5 >= 50)
+                        @if (Model.TotalCost - 5 >= 50)
                         {
                             <span>$0.00</span>
                         }
@@ -129,12 +129,11 @@
                     </p>
                     <p class="d-flex">
                         <span>Discount</span>
-                        <span>$0.00</span>
-                    </p>
-                    <hr>
+                        <span>$@Model.Discount.ToString("F2")</span>
+                        <hr>
                     <p class="d-flex total-price">
                         <span>Total</span>
-                        <span>$@Model.TotalCost</span>
+                        <span>$@((Model.TotalCost-Model.Discount).ToString("F2"))</span>
                     </p>
                 </div>
                 <p><a href="checkout.html" class="btn btn-primary py-3 px-4">Proceed to Checkout</a></p>

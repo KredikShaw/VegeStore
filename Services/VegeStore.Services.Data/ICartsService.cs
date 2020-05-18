@@ -14,5 +14,9 @@
         Task<string> CreateCart(string userId);
 
         Task<decimal> CalculateTotalCostAsync(string cartId);
+
+        Task ApplyCouponAsync(string code, string cartId);
+
+        decimal CalculateDiscount(string cartId);
     }
 }

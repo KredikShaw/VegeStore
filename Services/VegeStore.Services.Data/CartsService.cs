@@ -14,15 +14,33 @@
         private readonly IDeletableEntityRepository<Cart> cartsRepository;
         private readonly ICartItemsService cartItemsService;
         private readonly IItemsService itemsService;
+        private readonly ICouponsService couponsService;
 
         public CartsService(
             IDeletableEntityRepository<Cart> cartsRepository,
             ICartItemsService cartItemsService,
-            IItemsService itemsService)
+            IItemsService itemsService,
+            ICouponsService couponsService)
         {
             this.cartsRepository = cartsRepository;
             this.cartItemsService = cartItemsService;
             this.itemsService = itemsService;
+            this.couponsService = couponsService;
+        }
+
+        public async Task ApplyCouponAsync(string code, string cartId)
+        {
+            var coupon = this.couponsService.GetCoupon(code);
+            if (coupon != null && coupon.ExpirationDate.Ticks > DateTime.UtcNow.Ticks)
+            {
+                var cart = this.cartsRepository.All().FirstOrDefault(c => c.Id == cartId);
+                var discount = cart.TotalCost * (coupon.DicountAmount / 100);
+                cart.Discount = coupon.DicountAmount;
+                this.cartsRepository.Update(cart);
+                await this.cartsRepository.SaveChangesAsync();
+
+                await this.couponsService.DeleteCouponAsync(coupon);
+            }
         }
 
         public async Task<decimal> CalculateTotalCostAsync(string cartId)
@@ -65,6 +83,15 @@
                 .FirstOrDefault(c => c.Id == cartId);
 
             return cart;
+        }
+
+        public decimal CalculateDiscount(string cartId)
+        {
+            var cart = this.cartsRepository.All()
+                .FirstOrDefault(c => c.Id == cartId);
+
+            var discount = cart.TotalCost * (cart.Discount / 100);
+            return discount;
         }
     }
 }
