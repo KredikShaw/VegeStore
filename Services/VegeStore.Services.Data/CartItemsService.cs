@@ -52,6 +52,16 @@
             await this.cartItemsRepository.SaveChangesAsync();
         }
 
+        public async Task EmptyCart(string cartId)
+        {
+            var cartItems = this.cartItemsRepository.All().Where(c => c.CartId == cartId).ToList();
+            foreach (var cartItem in cartItems)
+            {
+                this.cartItemsRepository.Delete(cartItem);
+                await this.cartItemsRepository.SaveChangesAsync();
+            }
+        }
+
         public IEnumerable<CartItem> GetAllCartItems(string cartId)
         {
             var cartItems = this.cartItemsRepository

@@ -14,5 +14,9 @@
         Item GetItem(int id);
 
         IEnumerable<T> GetAllCartItems<T>(IEnumerable<int> ids);
+
+        bool CheckAvailability(int itemId, int amount);
+
+        Task DecreaseAvailability(int itemId, int amount);
     }
 }

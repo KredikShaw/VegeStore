@@ -66,7 +66,7 @@
                 </div>
             </div>
         </div>
-        <div class="row justify-content-end">
+        <div class="row justify-content-sm-around">
             <div class="col-lg-4 mt-5 cart-wrap ftco-animate">
                 <div class="cart-total mb-3">
                     <h3>Coupon Code</h3>
@@ -80,7 +80,7 @@
                     </form>
                 </div>
             </div>
-            <div class="col-lg-4 mt-5 cart-wrap ftco-animate">
+            @*<div class="col-lg-4 mt-5 cart-wrap ftco-animate">
                 <div class="cart-total mb-3">
                     <h3>Estimate shipping and tax</h3>
                     <p>Enter your destination to get a shipping estimate</p>
@@ -100,7 +100,7 @@
                     </form>
                 </div>
                 <p><a href="checkout.html" class="btn btn-primary py-3 px-4">Estimate</a></p>
-            </div>
+            </div>*@
             <div class="col-lg-4 mt-5 cart-wrap ftco-animate">
                 <div class="cart-total mb-3">
                     <h3>Cart Totals</h3>
@@ -136,7 +136,7 @@
                         <span>$@((Model.TotalCost-Model.Discount).ToString("F2"))</span>
                     </p>
                 </div>
-                <p><a href="checkout.html" class="btn btn-primary py-3 px-4">Proceed to Checkout</a></p>
+                <p><a asp-controller="Store" asp-action="Checkout" class="btn btn-primary py-3 px-4">Proceed to Checkout</a></p>
             </div>
         </div>
     </div>

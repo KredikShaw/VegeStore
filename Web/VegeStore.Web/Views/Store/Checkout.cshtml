@@ -2,6 +2,7 @@
 @{
     ViewData["Title"] = "Checkout";
 }
+@model VegeStore.Web.ViewModels.Checkout.CheckoutViewModel
 
 <div class="hero-wrap hero-bread" style="background-image: url('/images/bg_1.jpg');">
     <div class="container">
@@ -18,85 +19,56 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-xl-7 ftco-animate">
-                <form action="#" class="billing-form">
+                <form method="post" class="billing-form" id="detailsForm">
                     <h3 class="mb-4 billing-heading">Billing Details</h3>
                     <div class="row align-items-end">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="firstname">Firt Name</label>
-                                <input type="text" class="form-control" placeholder="">
+                                <label asp-for="InputModel.FirstName">First Name</label>
+                                <input type="text" class="form-control" asp-for="InputModel.FirstName" name="firstName" placeholder="">
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="lastname">Last Name</label>
-                                <input type="text" class="form-control" placeholder="">
-                            </div>
-                        </div>
-                        <div class="w-100"></div>
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label for="country">State / Country</label>
-                                <div class="select-wrap">
-                                    <div class="icon"><span class="ion-ios-arrow-down"></span></div>
-                                    <select name="" id="" class="form-control">
-                                        <option value="">France</option>
-                                        <option value="">Italy</option>
-                                        <option value="">Philippines</option>
-                                        <option value="">South Korea</option>
-                                        <option value="">Hongkong</option>
-                                        <option value="">Japan</option>
-                                    </select>
-                                </div>
+                                <label asp-for="InputModel.LastName">Last Name</label>
+                                <input type="text" class="form-control" asp-for="InputModel.LastName" name="lastName" placeholder="">
                             </div>
                         </div>
                         <div class="w-100"></div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="streetaddress">Street Address</label>
-                                <input type="text" class="form-control" placeholder="House number and street name">
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Appartment, suite, unit etc: (optional)">
+                                <label asp-for="InputModel.Neighbourhood">Neighbourhood</label>
+                                <input type="text" class="form-control" asp-for="InputModel.Neighbourhood" name="neighbourhood" placeholder="Sofia neighbourhood name">
                             </div>
                         </div>
                         <div class="w-100"></div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="towncity">Town / City</label>
-                                <input type="text" class="form-control" placeholder="">
+                                <label asp-for="InputModel.Street">Street Address</label>
+                                <input type="text" class="form-control" asp-for="InputModel.Street" name="street" placeholder="House number and street name">
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="postcodezip">Postcode / ZIP *</label>
-                                <input type="text" class="form-control" placeholder="">
+                                <label asp-for="InputModel.Appartment">Appartment (optional)</label>
+                                <input type="text" class="form-control" asp-for="InputModel.Appartment" name="appartment" placeholder="Appartment, suite, unit etc: (optional)">
                             </div>
                         </div>
                         <div class="w-100"></div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="phone">Phone</label>
-                                <input type="text" class="form-control" placeholder="">
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="emailaddress">Email Address</label>
-                                <input type="text" class="form-control" placeholder="">
+                                <label asp-for="InputModel.Zip">Postcode / ZIP</label>
+                                <input type="text" class="form-control" asp-for="InputModel.Zip" name="zip" placeholder="">
                             </div>
                         </div>
                         <div class="w-100"></div>
-                        <div class="col-md-12">
-                            <div class="form-group mt-4">
-                                <div class="radio">
-                                    <label class="mr-3"><input type="radio" name="optradio"> Create an Account? </label>
-                                    <label><input type="radio" name="optradio"> Ship to different address</label>
-                                </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="InputModel.Phone">Phone</label>
+                                <input type="text" class="form-control" asp-for="InputModel.Phone" name="phone" placeholder="">
                             </div>
                         </div>
+                        <div class="w-100"></div>
                     </div>
                 </form><!-- END -->
             </div>
@@ -107,55 +79,40 @@
                             <h3 class="billing-heading mb-4">Cart Total</h3>
                             <p class="d-flex">
                                 <span>Subtotal</span>
-                                <span>$20.60</span>
+                                @if (@Model.TotalCost - 5 >= 50)
+                                {
+                                    <span>$@(Model.TotalCost)</span>
+                                }
+                                else
+                                {
+                                    <span>$@(Model.TotalCost-5)</span>
+                                }
                             </p>
                             <p class="d-flex">
                                 <span>Delivery</span>
-                                <span>$0.00</span>
+                                @if (Model.TotalCost - 5 >= 50)
+                                {
+                                    <span>$0.00</span>
+                                }
+                                else
+                                {
+                                    <span>$5.00</span>
+                                }
                             </p>
                             <p class="d-flex">
                                 <span>Discount</span>
-                                <span>$3.00</span>
+                                <span>$@Model.Discount.ToString("F2")</span>
                             </p>
                             <hr>
                             <p class="d-flex total-price">
                                 <span>Total</span>
-                                <span>$17.60</span>
+                                <span>$@((Model.TotalCost-Model.Discount).ToString("F2"))</span>
                             </p>
                         </div>
                     </div>
                     <div class="col-md-12">
                         <div class="cart-detail p-3 p-md-4">
-                            <h3 class="billing-heading mb-4">Payment Method</h3>
-                            <div class="form-group">
-                                <div class="col-md-12">
-                                    <div class="radio">
-                                        <label><input type="radio" name="optradio" class="mr-2"> Direct Bank Tranfer</label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-md-12">
-                                    <div class="radio">
-                                        <label><input type="radio" name="optradio" class="mr-2"> Check Payment</label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-md-12">
-                                    <div class="radio">
-                                        <label><input type="radio" name="optradio" class="mr-2"> Paypal</label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-md-12">
-                                    <div class="checkbox">
-                                        <label><input type="checkbox" value="" class="mr-2"> I have read and accept the terms and conditions</label>
-                                    </div>
-                                </div>
-                            </div>
-                            <p><a href="#" class="btn btn-primary py-3 px-4">Place an order</a></p>
+                            <p><button form="detailsForm" class="btn btn-primary py-3 px-4">Place an order</button></p>
                         </div>
                     </div>
                 </div>

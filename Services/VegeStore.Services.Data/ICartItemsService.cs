@@ -23,5 +23,7 @@
         Task ChangeAmountAsync(string cartId, int itemId, int amount);
 
         IEnumerable<CartItem> GetAllCartItems(string cartId);
+
+        Task EmptyCart(string cartId);
     }
 }

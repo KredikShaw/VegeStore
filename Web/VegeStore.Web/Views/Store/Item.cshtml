@@ -52,12 +52,13 @@
                                     <i class="ion-ios-remove"></i>
                                 </button>
                             </span>
-                            <input type="text" id="amount" name="amount" class="form-control input-number" value="1" min="1" max="100">
+                            <input type="text" oninput="Check(this.value)" id="amount" name="amount" class="form-control input-number" value="1">
                             <span class="input-group-btn ml-2">
                                 <button type="button" class="quantity-right-plus btn" data-type="plus" data-field="">
                                     <i class="ion-ios-add"></i>
                                 </button>
                             </span>
+                            <label style="display:none; color:red;"; id="amountLabel" for="amount">Can't order more than @Model.Item.Available</label>
                         </div>
                         <div class="w-100"></div>
                         <div class="col-md-12">
@@ -225,3 +226,14 @@
         </div>
     </div>
 </section>
+
+<script>
+    function Check(value) {
+        if (value > @Model.Item.Available) {
+            document.getElementById('amountLabel').style.display = 'block';
+        }
+        else {
+            document.getElementById('amountLabel').style.display = 'none';
+        }
+    }
+</script>
