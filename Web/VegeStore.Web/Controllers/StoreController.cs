@@ -110,7 +110,7 @@
         {
             var user = await this.userManager.GetUserAsync(this.User);
             var cartId = user.CartId;
-            await this.cartItemsService.ChangeAmountAsync(cartId, itemId, amount);// Add the client-side availability check to the cart as well
+            await this.cartItemsService.ChangeAmountAsync(cartId, itemId, amount); // Add the client-side availability check to the cart as well
             return this.RedirectToAction("Cart");
         }
 
@@ -133,6 +133,7 @@
             {
                 TotalCost = await this.cartsService.CalculateTotalCostAsync(cartId),
                 Discount = this.cartsService.CalculateDiscount(cartId),
+                ItemsCount = this.cartsService.GetItemsCount(cartId),
             };
 
             return this.View(viewModel);
@@ -160,8 +161,9 @@
             }
 
             await this.cartItemsService.EmptyCart(cartId); // TODO: check if enough is available of item and decrease it after order
+            await this.cartsService.RemoveDiscount(cartId);
 
             return this.Redirect("/"); // Redirect to Thank you for the order page.
         }
-    }
+    } // TODO: Remove wishlist
 }

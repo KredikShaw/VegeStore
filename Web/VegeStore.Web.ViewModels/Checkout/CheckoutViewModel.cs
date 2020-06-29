@@ -10,6 +10,8 @@
 
         public decimal Discount { get; set; }
 
+        public int ItemsCount { get; set; }
+
         public CheckoutInputModel InputModel { get; set; }
     }
 }

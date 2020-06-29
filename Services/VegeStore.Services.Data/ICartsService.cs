@@ -18,5 +18,9 @@
         Task ApplyCouponAsync(string code, string cartId);
 
         decimal CalculateDiscount(string cartId);
+
+        Task RemoveDiscount(string cartId);
+
+        int GetItemsCount(string cartId);
     }
 }

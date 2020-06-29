@@ -6,6 +6,7 @@
     using System.Text;
     using System.Threading.Tasks;
 
+    using Microsoft.EntityFrameworkCore;
     using VegeStore.Data.Common.Repositories;
     using VegeStore.Data.Models;
 
@@ -52,7 +53,7 @@
             }
 
             var totalCost = cartItems.Sum(ci => ci.Item.Price * ci.Amount);
-            if (totalCost < 50)
+            if (totalCost < 50 && cartItems.Count() > 0)
             {
                 totalCost += 5;
             }
@@ -92,6 +93,22 @@
 
             var discount = cart.TotalCost * (cart.Discount / 100);
             return discount;
+        }
+
+        public async Task RemoveDiscount(string cartId)
+        {
+            var cart = await this.cartsRepository.All().FirstOrDefaultAsync(c => c.Id == cartId);
+            cart.Discount = 0;
+            this.cartsRepository.Update(cart);
+            await this.cartsRepository.SaveChangesAsync();
+        }
+
+        public int GetItemsCount(string cartId)
+        {
+            var cart = this.cartsRepository.All()
+                .FirstOrDefault(c => c.Id == cartId);
+
+            return cart.Items.Count();
         }
     }
 }

@@ -79,7 +79,7 @@
                             <h3 class="billing-heading mb-4">Cart Total</h3>
                             <p class="d-flex">
                                 <span>Subtotal</span>
-                                @if (@Model.TotalCost - 5 >= 50)
+                                @if (@Model.TotalCost - 5 >= 50 || Model.ItemsCount == 0)
                                 {
                                     <span>$@(Model.TotalCost)</span>
                                 }
@@ -90,7 +90,7 @@
                             </p>
                             <p class="d-flex">
                                 <span>Delivery</span>
-                                @if (Model.TotalCost - 5 >= 50)
+                                @if (Model.TotalCost - 5 >= 50 || Model.ItemsCount == 0)
                                 {
                                     <span>$0.00</span>
                                 }
