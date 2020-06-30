@@ -68,7 +68,7 @@
                             <input type="hidden" class="form-control" id="itemId" name="itemId" value="@Model.Item.Id">
                         </div>
                     </div>
-                    <p><input type="submit" class="btn btn-black py-3 px-5" value="Add to Cart" /></p>
+                    <p><input type="submit" class="btn btn-black py-3 px-5" id="submitButton" value="Add to Cart" /></p>
                 </form>
             </div>
         </div>
@@ -236,4 +236,10 @@
             document.getElementById('amountLabel').style.display = 'none';
         }
     }
+    (function button() {
+        let button = document.getElementById('submitButton');
+        if (@Model.Item.Available == 0) {
+            button.parentElement.style.setProperty('display', 'none');
+        }
+    })();
 </script>

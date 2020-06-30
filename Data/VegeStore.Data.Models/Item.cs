@@ -31,6 +31,8 @@
 
         public string ThumbnailUrl { get; set; }
 
+        public string Category { get; set; }
+
         public virtual ICollection<CartItem> Carts { get; set; }
     }
 }

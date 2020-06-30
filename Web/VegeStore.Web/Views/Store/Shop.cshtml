@@ -20,18 +20,18 @@
         <div class="row justify-content-center">
             <div class="col-md-10 mb-5 text-center">
                 <ul class="product-category">
-                    <li><a href="#" class="active">All</a></li>
-                    <li><a href="#">Vegetables</a></li>
-                    <li><a href="#">Fruits</a></li>
-                    <li><a href="#">Juice</a></li>
-                    <li><a href="#">Dried</a></li>
+                    <li><a onclick="filterByType('item',0)" class="active" href="#row">All</a></li>
+                    <li><a onclick="filterByType('Vegetable',1)" href="#row">Vegetables</a></li>
+                    <li><a onclick="filterByType('Fruit',2)" href="#row">Fruits</a></li>
+                    <li><a onclick="filterByType('Juice',3)" href="#row">Juices</a></li>
+                    <li><a onclick="filterByType('Dried',4)" href="#row">Dried</a></li>
                 </ul>
             </div>
         </div>
         <div class="row">
             @foreach (var item in this.Model.Items)
             {
-                <div class="col-md-6 col-lg-3 ftco-animate">
+                <div class="col-md-6 col-lg-3 ftco-animate @item.Type item">
                     <div class="product">
                         <a asp-controller="Store" asp-action="Item" asp-route-id="@item.Id" class="img-prod">
                             <img class="img-fluid" src="@item.ThumbnailUrl" alt="Colorlib Template">
@@ -98,3 +98,21 @@
         </div>
     </div>
 </section>
+
+<script>
+    function filterByType(typeName, index) {
+        let items = document.getElementsByClassName('item');
+        let itemsOfType = document.getElementsByClassName(typeName);
+        let buttons = document.querySelectorAll('.product-category li a');
+        for (var i = 0; i < items.length; i++) {
+            items[i].style.setProperty('display', 'none');
+        }
+        for (var i = 0; i < itemsOfType.length; i++) {
+            itemsOfType[i].style.setProperty('display', 'block');
+        }
+        for (var i = 0; i < buttons.length; i++) {
+            buttons[i].classList.remove('active');
+        }
+        buttons[index].classList.add('active');
+    }
+</script>
