@@ -5,8 +5,10 @@
     using System.Text;
     using System.Threading.Tasks;
 
+    using Microsoft.EntityFrameworkCore;
     using VegeStore.Data.Common.Repositories;
     using VegeStore.Data.Models;
+    using VegeStore.Services.Mapping;
 
     public class OrdersService : IOrdersService
     {
@@ -32,6 +34,16 @@
             await this.ordersRepository.SaveChangesAsync();
 
             return order.Id;
+        }
+
+        public async Task<IEnumerable<T>> GetOrdersAsync<T>()
+        {
+            var orders = await this.ordersRepository
+                .All()
+                .To<T>()
+                .ToListAsync();
+
+            return orders;
         }
     }
 }

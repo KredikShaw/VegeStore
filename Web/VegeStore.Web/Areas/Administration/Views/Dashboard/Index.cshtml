@@ -1,7 +1,14 @@
-﻿@model VegeStore.Web.ViewModels.Administration.Dashboard.IndexViewModel
-@{
+﻿@{
     this.ViewData["Title"] = "Admin dashboard";
 }
 
-<h1>@this.ViewData["Title"]</h1>
-Settings: @this.Model.SettingsCount
+<link href="~/css/AdminDashboard.css" rel="stylesheet" />
+
+<div class="dashboardContainer">
+    <h1>@this.ViewData["Title"]</h1>
+    <div class="buttons">
+        <a asp-action="Orders" class="dashboardButton">Orders</a>
+        <a asp-action="Users" class="dashboardButton">Users</a>
+        <a asp-action="Items" class="dashboardButton">Items</a>
+    </div>
+</div>

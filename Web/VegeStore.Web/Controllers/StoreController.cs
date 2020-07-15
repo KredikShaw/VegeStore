@@ -90,7 +90,7 @@
 
         [Authorize]
         [HttpPost]
-        public async Task<IActionResult> AddToCart(int itemId, int amount) // fix adding to cart from shop page
+        public async Task<IActionResult> AddToCart(int itemId, int amount) // TODO: fix adding to cart from shop page
         {
             var userId = this.userManager.GetUserId(this.User);
             await this.cartItemsService.CreateCartItemAsync(userId, itemId, amount);
@@ -110,7 +110,7 @@
         {
             var user = await this.userManager.GetUserAsync(this.User);
             var cartId = user.CartId;
-            await this.cartItemsService.ChangeAmountAsync(cartId, itemId, amount); // Add the client-side availability check to the cart as well
+            await this.cartItemsService.ChangeAmountAsync(cartId, itemId, amount);
             return this.RedirectToAction("Cart");
         }
 
@@ -160,10 +160,16 @@
                 await this.itemsService.DecreaseAvailability(cartItem.ItemId, cartItem.Amount);
             }
 
-            await this.cartItemsService.EmptyCart(cartId); // TODO: check if enough is available of item and decrease it after order
+            await this.cartItemsService.EmptyCart(cartId);
             await this.cartsService.RemoveDiscount(cartId);
 
-            return this.Redirect("/"); // Redirect to Thank you for the order page.
+            return this.RedirectToAction("ThankYou");
         }
-    } // TODO: Remove wishlist
+
+        [Authorize]
+        public IActionResult ThankYou() // TODO: Add administration
+        {// TODO: fix footer info, fix homepage info
+            return this.View(); // TODO: Add pagination where necessary
+        }// TODO: Refactor code (put everything in a new controller/service, currently breaking S from SOLID)
+    }
 }

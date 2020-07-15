@@ -8,5 +8,7 @@
     public interface IOrdersService
     {
         Task<string> CreateOrder(string name, string address, decimal price, string phone, string userId);
+
+        Task<IEnumerable<T>> GetOrdersAsync<T>();
     }
 }
