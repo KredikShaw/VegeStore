@@ -1,4 +1,4 @@
-﻿namespace VegeStore.Web.ViewModels.Administration.Dashboard
+﻿namespace VegeStore.Web.ViewModels.Administration.Orders
 {
     using System;
     using System.Collections.Generic;

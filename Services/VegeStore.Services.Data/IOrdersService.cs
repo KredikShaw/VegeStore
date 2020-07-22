@@ -10,5 +10,11 @@
         Task<string> CreateOrder(string name, string address, decimal price, string phone, string userId);
 
         Task<IEnumerable<T>> GetOrdersAsync<T>();
+
+        Task MarkOrderAsCompleted(string orderId);
+
+        Task MarkOrderAsUncompleted(string orderId);
+
+        Task<IEnumerable<T>> GetCompletedOrders<T>();
     }
 }

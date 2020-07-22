@@ -1,0 +1,39 @@
+﻿@model VegeStore.Web.ViewModels.Administration.Items.AdminItemsViewModel
+@{
+    ViewData["Title"] = "Items";
+}
+
+<div class="row" style="margin:3em;">
+    @foreach (var item in this.Model.Items)
+    {
+        <div class="col-md-6 col-lg-3 ftco-animate @item.Type item">
+            <div class="product">
+                <img class="img-fluid" src="@item.ThumbnailUrl" alt="Colorlib Template">
+                <div class="overlay"></div>
+                <div class="text py-3 pb-4 px-3 text-center">
+                    <h3><a href="#">@item.Name</a></h3>
+                    <div class="d-flex">
+                        <div class="pricing">
+                            <p class="price"><span>$@item.Price.ToString("F2")</span></p>
+                        </div>
+                    </div>
+                    <div class="bottom-area d-flex px-3">
+                        <div class="m-auto d-flex">
+                            <a asp-area="Administration" asp-controller="Items" asp-action="EditItem" asp-route-itemId="@item.Id" class="buy-now d-flex justify-content-center align-items-center mx-1">
+                                <span><i class="ion-ios-create"></i></span>
+                            </a>
+                            <a asp-area="Administration" asp-controller="Items" asp-action="DeleteItem" asp-route-itemId="@item.Id" class="heart d-flex justify-content-center align-items-center ">
+                                <span><i class="ion-ios-trash"></i></span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+<div class="row" style="margin:3em; display:flex; justify-content:center; font-size:5rem;">
+    <a asp-area="Administration" asp-controller="Items" asp-action="CreateItem" class="buy-now d-flex justify-content-center align-items-center mx-1">
+        <span><i class="ion-ios-add-circle"></i></span>
+    </a>
+</div>

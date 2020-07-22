@@ -7,8 +7,8 @@
 <div class="dashboardContainer">
     <h1>@this.ViewData["Title"]</h1>
     <div class="buttons">
-        <a asp-action="Orders" class="dashboardButton">Orders</a>
+        <a asp-area="Administration" asp-controller="Orders" asp-action="Orders" class="dashboardButton">Orders</a>
         <a asp-action="Users" class="dashboardButton">Users</a>
-        <a asp-action="Items" class="dashboardButton">Items</a>
+        <a asp-area="Administration" asp-controller="Items" asp-action="Items" class="dashboardButton">Items</a>
     </div>
 </div>

@@ -1,0 +1,38 @@
+﻿@model VegeStore.Web.ViewModels.Administration.Orders.AdminOrdersViewModel
+@inject VegeStore.Services.Data.IItemsService itemsService
+@{
+    ViewData["Title"] = "Orders";
+}
+
+<div class="completedContainer nav nav-pills" style="margin:2em;padding:1em; display:flex; justify-content:center;">
+    <a asp-area="Administration" asp-controller="Orders" asp-action="Orders" class="nav-link active" style="background-color:#82ae46; border-radius:30px;">Back to Orders</a>
+</div>
+
+<div id="OrdersContainer" style="margin:2em;padding:1em;">
+    @foreach (var order in this.Model.Orders)
+    {
+        <div class="jumbotron">
+            <h2>Address: @order.Address</h2>
+            <hr class="my-4">
+            <h3 class="lead">Name: @order.FullName</h3>
+            <hr class="my-4">
+            <h3 class="lead">Email: @order.UserUserName</h3>
+            <hr class="my-4">
+            <h3 class="lead">Phone: @order.Phone</h3>
+            <hr class="my-4">
+            <h3 class="lead">Products:</h3>
+            <hr class="my-4">
+            @foreach (var product in order.OrderItems)
+            {
+                <h3>@itemsService.GetItem(product.ItemId).Name - @product.Amount kg</h3>
+                <hr class="my-4">
+            }
+            <hr class="my-4">
+            <h1>Total Price: @order.Price$</h1>
+            <hr class="my-4">
+            <h3 class="lead">
+                <a class="btn btn-danger btn-lg" asp-area="Administration" asp-controller="Orders" asp-action="UncompleteOrder" asp-route-orderId="@order.Id" role="button">Mark as Uncompleted</a>
+            </h3>
+        </div>
+    }
+</div>
