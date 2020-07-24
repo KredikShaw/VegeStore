@@ -71,6 +71,7 @@
             services.AddTransient<ICouponsService, CouponsService>();
             services.AddTransient<IOrdersService, OrdersService>();
             services.AddTransient<IOrderItemsService, OrderItemsService>();
+            services.AddTransient<IUploadService, UploadService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

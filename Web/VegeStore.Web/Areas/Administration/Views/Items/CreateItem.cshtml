@@ -1,0 +1,41 @@
+﻿@model VegeStore.Web.ViewModels.Administration.Items.ItemsInputModel
+@{
+    ViewData["Title"] = "CreateItem";
+}
+
+<div style="margin:2em; padding:2em;">
+    <form method="post" enctype="multipart/form-data">
+        <div class="form-group">
+            <label asp-for="Name">Name</label>
+            <input type="text" class="form-control" asp-for="Name" placeholder="Garlic/Onion/Apple/Date...">
+        </div>
+        <div class="form-group">
+            <label for="Type">Type</label>
+            <select class="form-control" asp-for="Type">
+                <option value="Vegetable">Vegetable</option>
+                <option value="Fruit">Fruit</option>
+                <option value="Juice">Juice</option>
+                <option value="Dried">Dried</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label asp-for="Description">Description</label>
+            <textarea class="form-control" asp-for="Description" placeholder="Basic description of the product" rows="3"></textarea>
+        </div>
+        <div class="form-group">
+            <label asp-for="Price">Price</label>
+            <input type="number" class="form-control" asp-for="Price" placeholder="2.50 (per kg)">
+        </div>
+        <div class="form-group">
+            <label asp-for="Available">Available</label>
+            <input type="number" class="form-control" asp-for="Available" placeholder="100 (kg)">
+        </div>
+        <div class="form-group">
+            <label asp-for="Thumbnail">Thumbnail</label>
+            <input type="file" class="form-control-file" asp-for="Thumbnail">
+        </div>
+        <div class="form-group">
+            <input type="submit" class="form-control-file" value="Submit">
+        </div>
+    </form>
+</div>

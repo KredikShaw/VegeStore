@@ -134,6 +134,7 @@
                 TotalCost = await this.cartsService.CalculateTotalCostAsync(cartId),
                 Discount = this.cartsService.CalculateDiscount(cartId),
                 ItemsCount = this.cartsService.GetItemsCount(cartId),
+                // InputModel = new CheckoutInputModel(),
             };
 
             return this.View(viewModel);
