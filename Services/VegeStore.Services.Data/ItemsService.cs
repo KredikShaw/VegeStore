@@ -7,6 +7,7 @@
     using System.Text;
     using System.Threading.Tasks;
 
+    using Microsoft.EntityFrameworkCore;
     using VegeStore.Data.Common.Repositories;
     using VegeStore.Data.Models;
     using VegeStore.Services.Mapping;
@@ -26,7 +27,7 @@
             return amount <= item.Available;
         }
 
-        public async Task CreateItem(string name, string type, string description, decimal price, double available, string thumbnailUrl)
+        public async Task CreateItemAsync(string name, string type, string description, decimal price, double available, string thumbnailUrl)
         {
             var item = new Item
             {
@@ -42,7 +43,7 @@
             await this.itemsRepository.SaveChangesAsync();
         }
 
-        public async Task DecreaseAvailability(int itemId, int amount)
+        public async Task DecreaseAvailabilityAsync(int itemId, int amount)
         {
             var item = this.itemsRepository.All().FirstOrDefault(i => i.Id == itemId);
             item.Available -= amount;
@@ -51,7 +52,7 @@
             await this.itemsRepository.SaveChangesAsync();
         }
 
-        public async Task DeleteItem(int id)
+        public async Task DeleteItemAsync(int id)
         {
             var item = this.itemsRepository.All()
                 .FirstOrDefault(x => x.Id == id);
@@ -82,6 +83,17 @@
             return items;
         }
 
+        public async Task<IEnumerable<T>> GetDeletedItemsAsync<T>()
+        {
+            var items = await this.itemsRepository
+                .AllWithDeleted()
+                .Where(x => x.IsDeleted == true)
+                .To<T>()
+                .ToListAsync();
+
+            return items;
+        }
+
         public Item GetItem(int id)
         {
             var item = this.itemsRepository
@@ -102,7 +114,17 @@
             return item;
         }
 
-        public async Task UpdateItem(int id, string name, string type, string description, decimal price, double available, string thumbnailUrl)
+        public async Task UndeleteItemAsync(int id)
+        {
+            var item = await this.itemsRepository
+                .AllWithDeleted()
+                .FirstOrDefaultAsync(x => x.Id == id);
+
+            this.itemsRepository.Undelete(item);
+            await this.itemsRepository.SaveChangesAsync();
+        }
+
+        public async Task UpdateItemAsync(int id, string name, string type, string description, decimal price, double available, string thumbnailUrl)
         {
             var item = this.itemsRepository.All()
                 .FirstOrDefault(x => x.Id == id);

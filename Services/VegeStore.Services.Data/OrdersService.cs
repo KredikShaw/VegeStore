@@ -20,7 +20,7 @@
             this.ordersRepository = ordersRepository;
         }
 
-        public async Task<string> CreateOrder(string name, string address, decimal price, string phone, string userId)
+        public async Task<string> CreateOrderAsync(string name, string address, decimal price, string phone, string userId)
         {
             var order = new Order
             {
@@ -37,7 +37,7 @@
             return order.Id;
         }
 
-        public async Task<IEnumerable<T>> GetCompletedOrders<T>()
+        public async Task<IEnumerable<T>> GetCompletedOrdersAsync<T>()
         {
             var orders = await this.ordersRepository
                 .AllWithDeleted()
@@ -58,7 +58,7 @@
             return orders;
         }
 
-        public async Task MarkOrderAsCompleted(string orderId)
+        public async Task MarkOrderAsCompletedAsync(string orderId)
         {
             var order = await this.ordersRepository
                 .All()
@@ -68,7 +68,7 @@
             await this.ordersRepository.SaveChangesAsync();
         }
 
-        public async Task MarkOrderAsUncompleted(string orderId)
+        public async Task MarkOrderAsUncompletedAsync(string orderId)
         {
             var order = await this.ordersRepository
                    .AllWithDeleted()

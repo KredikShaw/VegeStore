@@ -30,7 +30,7 @@
 
         public async Task<IActionResult> BanUser(string userId)
         {
-            await this.usersService.BanUser(userId);
+            await this.usersService.BanUserAsync(userId);
 
             return this.RedirectToAction("Users");
         }
@@ -47,9 +47,9 @@
 
         public async Task<IActionResult> UnbanUser(string userId)
         {
-            await this.usersService.UnbanUser(userId);
+            await this.usersService.UnbanUserAsync(userId);
 
-            return this.RedirectToAction("BannedUsers"); // TODO: Commit
+            return this.RedirectToAction("BannedUsers"); // TODO: Admin to be able to control deal of the day
         }
     }
 }

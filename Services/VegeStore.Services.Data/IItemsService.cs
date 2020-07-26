@@ -19,12 +19,16 @@
 
         bool CheckAvailability(int itemId, int amount);
 
-        Task DecreaseAvailability(int itemId, int amount);
+        Task DecreaseAvailabilityAsync(int itemId, int amount);
 
-        Task CreateItem(string name, string type, string description, decimal price, double available, string thumbnailUrl);
+        Task CreateItemAsync(string name, string type, string description, decimal price, double available, string thumbnailUrl);
 
-        Task UpdateItem(int id, string name, string type, string description, decimal price, double available, string thumbnailUrl);
+        Task UpdateItemAsync(int id, string name, string type, string description, decimal price, double available, string thumbnailUrl);
 
-        Task DeleteItem(int id);
+        Task DeleteItemAsync(int id);
+
+        Task<IEnumerable<T>> GetDeletedItemsAsync<T>();
+
+        Task UndeleteItemAsync(int id);
     }
 }

@@ -66,7 +66,7 @@
             return totalCost;
         }
 
-        public async Task<string> CreateCart(string userId)
+        public async Task<string> CreateCartAsync(string userId)
         {
             var cart = new Cart
             {
@@ -95,7 +95,7 @@
             return discount;
         }
 
-        public async Task RemoveDiscount(string cartId)
+        public async Task RemoveDiscountAsync(string cartId)
         {
             var cart = await this.cartsRepository.All().FirstOrDefaultAsync(c => c.Id == cartId);
             cart.Discount = 0;

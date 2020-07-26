@@ -29,7 +29,7 @@
 
         public async Task<IActionResult> CompleteOrder(string orderId)
         {
-            await this.ordersService.MarkOrderAsCompleted(orderId);
+            await this.ordersService.MarkOrderAsCompletedAsync(orderId);
             return this.RedirectToAction("Orders");
         }
 
@@ -37,14 +37,14 @@
         {
             var viewModel = new AdminOrdersViewModel
             {
-                Orders = await this.ordersService.GetCompletedOrders<AdminOrderViewModel>(),
+                Orders = await this.ordersService.GetCompletedOrdersAsync<AdminOrderViewModel>(),
             };
             return this.View(viewModel);
         }
 
         public async Task<IActionResult> UncompleteOrder(string orderId)
         {
-            await this.ordersService.MarkOrderAsUncompleted(orderId);
+            await this.ordersService.MarkOrderAsUncompletedAsync(orderId);
             return this.RedirectToAction("CompletedOrders");
         }
     }

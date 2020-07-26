@@ -11,7 +11,7 @@
     {
         Cart GetCart(string cartId);
 
-        Task<string> CreateCart(string userId);
+        Task<string> CreateCartAsync(string userId);
 
         Task<decimal> CalculateTotalCostAsync(string cartId);
 
@@ -19,7 +19,7 @@
 
         decimal CalculateDiscount(string cartId);
 
-        Task RemoveDiscount(string cartId);
+        Task RemoveDiscountAsync(string cartId);
 
         int GetItemsCount(string cartId);
     }

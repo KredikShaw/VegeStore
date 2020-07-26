@@ -24,6 +24,6 @@
 
         IEnumerable<CartItem> GetAllCartItems(string cartId);
 
-        Task EmptyCart(string cartId);
+        Task EmptyCartAsync(string cartId);
     }
 }

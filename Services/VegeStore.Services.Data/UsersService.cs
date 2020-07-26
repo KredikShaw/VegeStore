@@ -19,7 +19,7 @@
             this.usersRepository = usersRepository;
         }
 
-        public async Task BanUser(string userId)
+        public async Task BanUserAsync(string userId)
         {
             var user = this.usersRepository.All()
                 .FirstOrDefault(x => x.Id == userId);
@@ -60,7 +60,7 @@
             return users;
         }
 
-        public async Task UnbanUser(string userId)
+        public async Task UnbanUserAsync(string userId)
         {
             var user = this.usersRepository
                 .AllWithDeleted()

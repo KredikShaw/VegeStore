@@ -151,18 +151,18 @@
             var cartId = user.CartId;
             var price = this.cartsService.GetCart(cartId).TotalCost;
 
-            var orderId = await this.ordersService.CreateOrder(name, address, price, inputModel.Phone, userId);
+            var orderId = await this.ordersService.CreateOrderAsync(name, address, price, inputModel.Phone, userId);
 
             var cartItems = this.cartItemsService.GetAllCartItems(cartId);
 
             foreach (var cartItem in cartItems)
             {
                 await this.orderItemsService.CreateOrderItemAsync(orderId, cartItem.ItemId, cartItem.Amount);
-                await this.itemsService.DecreaseAvailability(cartItem.ItemId, cartItem.Amount);
+                await this.itemsService.DecreaseAvailabilityAsync(cartItem.ItemId, cartItem.Amount);
             }
 
-            await this.cartItemsService.EmptyCart(cartId);
-            await this.cartsService.RemoveDiscount(cartId);
+            await this.cartItemsService.EmptyCartAsync(cartId);
+            await this.cartsService.RemoveDiscountAsync(cartId);
 
             return this.RedirectToAction("ThankYou");
         }

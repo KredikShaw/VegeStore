@@ -11,10 +11,10 @@
 
         IEnumerable<T> GetUsers<T>();
 
-        Task BanUser(string userId);
+        Task BanUserAsync(string userId);
 
         IEnumerable<T> GetBannedUsers<T>();
 
-        Task UnbanUser(string userId);
+        Task UnbanUserAsync(string userId);
     }
 }

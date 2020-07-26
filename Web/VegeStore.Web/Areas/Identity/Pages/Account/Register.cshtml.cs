@@ -80,7 +80,7 @@ namespace VegeStore.Web.Areas.Identity.Pages.Account
             if (ModelState.IsValid)
             {
                 var user = new ApplicationUser { UserName = Input.Email, Email = Input.Email };
-                var cartId = await this.cartsService.CreateCart(user.Id);
+                var cartId = await this.cartsService.CreateCartAsync(user.Id);
                 user.CartId = cartId;
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)

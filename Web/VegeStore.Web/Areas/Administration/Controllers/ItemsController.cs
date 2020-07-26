@@ -17,7 +17,7 @@
         public ItemsController(IItemsService itemsService, IUploadService uploadService)
         {
             this.itemsService = itemsService;
-            this.uploadService = uploadService; // TODO: Add option to see and undelete items
+            this.uploadService = uploadService;
         }
 
         public IActionResult Items()
@@ -42,7 +42,7 @@
         {
             var url = this.uploadService.UploadImageToCloudinary(inputModel.Thumbnail.OpenReadStream());
 
-            await this.itemsService.CreateItem(inputModel.Name, inputModel.Type, inputModel.Description, inputModel.Price, inputModel.Available, url);
+            await this.itemsService.CreateItemAsync(inputModel.Name, inputModel.Type, inputModel.Description, inputModel.Price, inputModel.Available, url);
 
             return this.RedirectToAction("Items");
         }
@@ -64,16 +64,33 @@
                 thumbnailUrl = this.uploadService.UploadImageToCloudinary(inputModel.Thumbnail.OpenReadStream());
             }
 
-            await this.itemsService.UpdateItem(inputModel.Id, inputModel.Name, inputModel.Type, inputModel.Description, inputModel.Price, inputModel.Available, thumbnailUrl);
+            await this.itemsService.UpdateItemAsync(inputModel.Id, inputModel.Name, inputModel.Type, inputModel.Description, inputModel.Price, inputModel.Available, thumbnailUrl);
 
             return this.RedirectToAction("Items");
         }
 
         public async Task<IActionResult> DeleteItem(int itemId)
         {
-            await this.itemsService.DeleteItem(itemId); // TODO: Change async methods' names to ...Async (eg. DeleteItemAsync)
+            await this.itemsService.DeleteItemAsync(itemId);
 
             return this.RedirectToAction("Items"); // TODO: Add modal popup to confirm delete
+        }
+
+        public async Task<IActionResult> DeletedItems()
+        {
+            var viewModel = new AdminItemsViewModel
+            {
+                Items = await this.itemsService.GetDeletedItemsAsync<AdminItemViewModel>(),
+            };
+
+            return this.View(viewModel);
+        }
+
+        public async Task<IActionResult> UndeleteItem(int itemId)
+        {
+            await this.itemsService.UndeleteItemAsync(itemId);
+
+            return this.RedirectToAction("DeletedItems");
         }
     }
 }

@@ -7,14 +7,14 @@
 
     public interface IOrdersService
     {
-        Task<string> CreateOrder(string name, string address, decimal price, string phone, string userId);
+        Task<string> CreateOrderAsync(string name, string address, decimal price, string phone, string userId);
 
         Task<IEnumerable<T>> GetOrdersAsync<T>();
 
-        Task MarkOrderAsCompleted(string orderId);
+        Task MarkOrderAsCompletedAsync(string orderId);
 
-        Task MarkOrderAsUncompleted(string orderId);
+        Task MarkOrderAsUncompletedAsync(string orderId);
 
-        Task<IEnumerable<T>> GetCompletedOrders<T>();
+        Task<IEnumerable<T>> GetCompletedOrdersAsync<T>();
     }
 }
