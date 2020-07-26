@@ -168,7 +168,7 @@
         }
 
         [Authorize]
-        public IActionResult ThankYou() // TODO: Add administration
+        public IActionResult ThankYou()
         {// TODO: fix footer info, fix homepage info
             return this.View(); // TODO: Add pagination where necessary
         }// TODO: Refactor code (put everything in a new controller/service, currently breaking S from SOLID)

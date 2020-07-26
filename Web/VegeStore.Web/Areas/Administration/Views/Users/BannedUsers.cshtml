@@ -1,0 +1,24 @@
+﻿@model VegeStore.Web.ViewModels.Administration.Users.AdminUsersViewModel
+@{
+    ViewData["Title"] = "BannedUsers";
+}
+<div class="completedContainer nav nav-pills" style="margin:2em;padding:1em; display:flex; justify-content:center;">
+    <a asp-area="Administration" asp-controller="Users" asp-action="Users" class="nav-link active" style="background-color:#82ae46; border-radius:30px;">Back to Users</a>
+</div>
+<div id="OrdersContainer" style="margin:2em;padding:1em;">
+    @foreach (var user in this.Model.Users)
+    {
+        <div class="jumbotron">
+            <h2>Email: @user.Email</h2>
+            <hr class="my-4">
+            <h3 class="lead">Created On: @user.CreatedOn</h3>
+            <hr class="my-4">
+            <h3 class="lead">Orders Count: @user.OrdersCount</h3>
+            <hr class="my-4">
+            <hr class="my-4">
+            <h3 class="lead">
+                <a class="btn btn-primary btn-lg" asp-area="Administration" asp-controller="Users" asp-action="UnbanUser" asp-route-userId="@user.Id" role="button">Unban User</a>
+            </h3>
+        </div>
+    }
+</div>

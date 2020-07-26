@@ -17,7 +17,7 @@
         public ItemsController(IItemsService itemsService, IUploadService uploadService)
         {
             this.itemsService = itemsService;
-            this.uploadService = uploadService;
+            this.uploadService = uploadService; // TODO: Add option to see and undelete items
         }
 
         public IActionResult Items()
@@ -27,7 +27,7 @@
                 Items = this.itemsService.GetAllItems<AdminItemViewModel>(),
             };
 
-            return this.View(viewModel); // TODO: Create Item functionality
+            return this.View(viewModel);
         }
 
         public IActionResult CreateItem()

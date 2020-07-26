@@ -15,7 +15,7 @@ namespace VegeStore.Data.Models
             this.Roles = new HashSet<IdentityUserRole<string>>();
             this.Claims = new HashSet<IdentityUserClaim<string>>();
             this.Logins = new HashSet<IdentityUserLogin<string>>();
-            this.Orders = new HashSet<OrderItem>();
+            this.Orders = new HashSet<Order>();
         }
 
         // Audit info
@@ -34,7 +34,7 @@ namespace VegeStore.Data.Models
 
         public virtual ICollection<IdentityUserLogin<string>> Logins { get; set; }
 
-        public virtual ICollection<OrderItem> Orders { get; set; }
+        public virtual ICollection<Order> Orders { get; set; }
 
         public string CartId { get; set; }
 
