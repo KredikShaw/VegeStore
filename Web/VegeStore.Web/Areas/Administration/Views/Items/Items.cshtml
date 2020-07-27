@@ -24,10 +24,34 @@
                             <a asp-area="Administration" asp-controller="Items" asp-action="EditItem" asp-route-itemId="@item.Id" class="buy-now d-flex justify-content-center align-items-center mx-1">
                                 <span><i class="ion-ios-create"></i></span>
                             </a>
-                            <a asp-area="Administration" asp-controller="Items" asp-action="DeleteItem" asp-route-itemId="@item.Id" class="heart d-flex justify-content-center align-items-center ">
+                            <!-- Button trigger modal -->
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal1-@item.Id">
                                 <span><i class="ion-ios-trash"></i></span>
-                            </a>
+                            </button>
                         </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal1-@item.Id" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        Do you want to delete @item.Name?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <a asp-area="Administration" asp-controller="Items" asp-action="DeleteItem" asp-route-itemId="@item.Id" class="btn btn-danger heart d-flex justify-content-center align-items-center ">
+                            Delete
+                        </a>
                     </div>
                 </div>
             </div>
